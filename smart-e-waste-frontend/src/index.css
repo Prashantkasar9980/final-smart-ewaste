@@ -1,0 +1,324 @@
+@import "tailwindcss";
+
+/* Ensure navbar area matches page - no gap at top-left corner */
+html {
+  background-color: #ffffff;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: 'Outfit', sans-serif;
+  --animate-blob: blob 7s infinite;
+  --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
+  --animate-fade-in-left: fadeInLeft 0.8s ease-out forwards;
+  --animate-fade-in-right: fadeInRight 0.8s ease-out forwards;
+  --animate-slide-in-right: slideInRight 0.6s ease-out forwards;
+  --animate-slide-in-left: slideInLeft 0.6s ease-out forwards;
+  --animate-slide-in-right-reverse: slideInRightReverse 0.6s ease-out forwards;
+  --animate-slide-in-left-reverse: slideInLeftReverse 0.6s ease-out forwards;
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Slide Animations for Auth Swap Illusion */
+/* Purpose: Simulate specific movement from opposite side usually occupied by other component */
+
+/* Usage: For items appearing from Left (moving Right) */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Usage: For items appearing from Right (moving Left) */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Specific overrides for the panel swap effect */
+@keyframes slideFromRightPosition {
+   from { transform: translateX(100%); opacity: 0; }
+   to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideFromLeftPosition {
+   from { transform: translateX(-100%); opacity: 0; }
+   to { transform: translateX(0); opacity: 1; }
+}
+
+/* Custom classes if tailwind theme doesn't pick up simpler names */
+.animate-swap-left {
+  animation: slideFromRightPosition 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-swap-right {
+  animation: slideFromLeftPosition 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+
+/* Simple dark mode support toggled via body.dark-mode */
+body.dark-mode {
+  background-color: #020617;
+  color: #e5e7eb;
+}
+
+body.dark-mode .bg-white,
+body.dark-mode .bg-gray-50,
+body.dark-mode .bg-slate-50 {
+  background-color: #020617;
+}
+
+body.dark-mode .text-gray-900,
+body.dark-mode .text-slate-900,
+body.dark-mode .text-slate-800 {
+  color: #e5e7eb;
+}
+
+body.dark-mode .text-gray-700,
+body.dark-mode .text-slate-700,
+body.dark-mode .text-slate-600,
+body.dark-mode .text-gray-600,
+body.dark-mode .text-slate-500 {
+  color: #cbd5f5;
+}
+
+body.dark-mode .border-emerald-100,
+body.dark-mode .border-gray-200,
+body.dark-mode .border-slate-200 {
+  border-color: #1f2937;
+}
+
+/* ----------------------------------
+   PROFESSIONAL AUTH PAGE POLISH
+-------------------------------------*/
+
+.auth-title {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.auth-subtitle {
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.auth-card {
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+/* Subtle improvement for admin UI */
+.border-emerald-50 { border-color: #ecfdf5; }
+.bg-emerald-50 { background-color: #ecfdf5; }
+
+/* Fix unwanted horizontal scroll and right-side white space */
+html, body {
+    overflow-x: hidden !important;
+}
+/* === Global responsive fixes === */
+/* Ensure predictable box-sizing */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Make images and svgs responsive */
+img, svg, picture { max-width: 100%; height: auto; display: block; }
+
+/* Make long words/wrapping behave on mobile */
+body, p, li, h1, h2, h3, h4, h5, h6 {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Generic card safety (will affect any element you mark with .card-* classes,
+   and also some probable class names your layout might already use) */
+.card, .card-box, .feature-card, .how-card, .step-card, .service-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* If your cards sit inside a grid/row container, make the container responsive */
+.cards-grid, .section-cards, .features-grid, .how-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* Break into more columns on larger screens */
+@media (min-width: 640px) {
+  .cards-grid, .section-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .cards-grid, .section-cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Specific fix for vertical step columns (keeps columns from overflowing horizontally) */
+.step-column {
+  min-width: 0;          /* important so flex/grid children can shrink */
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Prevent horizontal overflow globally (helps if a wide element leaks) */
+html, body, #root {
+  overflow-x: hidden;
+}
+/* === Responsive safety helpers === */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+img, svg, picture { max-width: 100%; height: auto; display: block; }
+
+html, body, #root { overflow-x: hidden; }
+
+/* Prevent children from forcing parent width in flex/grid */
+.min-0 { min-width: 0; }
+
+/* Generic card safety — apply these classes to card wrappers if needed */
+.card-safe {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Force text wrapping for really narrow columns */
+.wrap-normal { white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
+
+/* Grid helpers if you use class names like .cards-grid */
+.cards-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .cards-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Steps vertical columns safety: allow shrinking on small screens */
+.step-column { min-width: 0; white-space: normal; word-break: break-word; hyphens: auto; }
+/* responsive safety helpers (append to your index.css if not already present) */
+.min-0 { min-width: 0 !important; }
+.wrap-normal { white-space: normal !important; word-break: break-word !important; overflow-wrap: anywhere !important; }
+.card-safe { width: 100% !important; max-width: 95% !important; overflow: hidden !important; word-break: break-word !important; hyphens: auto !important; }
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ==========================
+   E-WASTE FORM STYLES
+   (used by src/pages/EwasteForm.jsx)
+   ========================== */
+.ewaste-form {
+  max-width: 900px;
+  border-radius: 12px;
+}
+
+.ewaste-form .ewaste-image-preview {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+}
+
+@media (max-width: 640px) {
+  .ewaste-form { padding: 20px !important; }
+}
+
+/* AI Animated background */
+
+.dashboard-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+            120deg,
+            rgba(16,185,129,0.12),
+            rgba(59,130,246,0.12),
+            rgba(168,85,247,0.12)
+    );
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    animation: blobMove 12s infinite ease-in-out;
+}
+
+.blob1 {
+    width: 400px;
+    height: 400px;
+    background: #10b981;
+    top: -100px;
+    left: -100px;
+}
+
+.blob2 {
+    width: 350px;
+    height: 350px;
+    background: #6366f1;
+    bottom: -120px;
+    right: -120px;
+}
+
+.blob3 {
+    width: 300px;
+    height: 300px;
+    background: #a855f7;
+    top: 40%;
+    left: 60%;
+}
+
+@keyframes blobMove {
+    0% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(50px,-60px) scale(1.1); }
+    100% { transform: translate(0,0) scale(1); }
+}
